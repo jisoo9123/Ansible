@@ -1,0 +1,13 @@
+---
+- name: PS1, Alias 설정
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: 파일 배포 - /home/devops/.bashrc
+      # templates/bashrc.j2 -- 배포 --> ansible# (/home/devops/.bashrc)
+      ansible.builtin.template:
+        src: templates/bashrc.j2
+        dest: /home/devops/.bashrc
+        owner: devops
+        group: devops
+        mode: '0644'

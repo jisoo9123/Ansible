@@ -1,0 +1,9 @@
+---
+- name: Remove file.yml
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: 파일 지운기 - /home/devops/users.txt
+      ansible.builtin.file:
+        path: /home/devops/users.txt
+        state: absent

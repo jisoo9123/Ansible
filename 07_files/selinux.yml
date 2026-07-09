@@ -1,0 +1,18 @@
+---
+- name: 모듈 테스트 - SELinux
+  hosts: all
+  tasks:
+    - name: SELinux = enforcing 파일 수정
+      ansible.builtin.lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        line: SELINUX=enforcing
+
+    - name: 현재 SELinux 설정
+      ansible.builtin.command:
+        cmd: setenforce 1
+
+    #- name: 1) Enable SELinux
+    #  ansible.posix.selinux:
+    #    policy: targeted
+    #    state: permissive

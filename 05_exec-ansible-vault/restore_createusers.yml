@@ -1,0 +1,13 @@
+---
+- name: Restore createusers.yml
+  hosts: all
+  vars_files:
+    - vars/secret.yml
+  tasks:
+    - name: 1) 사용자 삭제
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        state: absent
+        remove: true
+      loop: "{{ newusers }}"
+        

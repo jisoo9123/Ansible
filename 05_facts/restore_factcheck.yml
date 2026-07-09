@@ -1,0 +1,41 @@
+---
+- name: Restore factcheck.yml
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Configuration firewall
+      firewalld:
+        service: http
+        permanent: yes
+        immediate: yes
+        state: disabled
+
+    - name: firewalld is stopped
+      ansible.builtin.service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: httpd is stopped
+      service:
+        name: httpd
+        state: stopped
+        enabled: false
+
+    - name: remove the file - /var/www/html/index.html
+      ansible.builtin.file:
+        path: /var/www/html/index.html
+        state: absent
+
+    - name: remove the package
+      ansible.builtin.yum:
+        name: httpd
+        state: absent
+
+
+
+
+
+
+
+
